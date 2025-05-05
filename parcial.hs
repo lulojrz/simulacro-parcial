@@ -35,10 +35,11 @@ comparar (x:y:xs) | contarLetra x (x:y:xs) > contarLetra y (x:y:xs) = x
 
 --ejercicio 4
 codificarFrase :: [Char] -> [(Char,Char)] -> [Char]
-codificarFrase _ [] = []
-codificarFrase (x:xs) mapeo | hayQueCodificar x mapeo == True  = (reemplazarLetra x mapeo : codificarFrase xs mapeo) 
-                            | otherwise = codificarFrase xs mapeo
+codificarFrase [] _ = []
+codificarFrase (x:xs) mapeo | hayQueCodificar x mapeo   = reemplazarLetra x mapeo : codificarFrase xs mapeo 
+                            | otherwise = x: codificarFrase xs mapeo
 
 reemplazarLetra :: Char -> [(Char,Char)] -> Char
+reemplazarLetra letra [] = letra
 reemplazarLetra letra ((x,y):xs) | letra == x = y
-                                 | otherwise = x
+                                 | otherwise = reemplazarLetra letra xs
